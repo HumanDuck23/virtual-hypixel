@@ -1,0 +1,11 @@
+{
+  "name": "virtual-hypixel",
+  "version": "1.0.0",
+  "description": "Proxy to hypixel",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "_Spqgett1#6969",
+  "license": "ISC"
+}

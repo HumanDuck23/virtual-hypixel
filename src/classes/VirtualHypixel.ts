@@ -1,7 +1,9 @@
 import {configInterface} from "../interfaces/configInterface"
-import {InstantConnectProxy} from "prismarine-proxy";
-import {PacketFilter} from "./PacketFilter";
-import {Logger} from "./Logger";
+import {InstantConnectProxy} from "prismarine-proxy"
+import {PacketFilter} from "./PacketFilter"
+import {Client} from "minecraft-protocol"
+import {Logger} from "./Logger"
+
 
 export class VirtualHypixel {
 
@@ -35,7 +37,7 @@ export class VirtualHypixel {
         })
 
         // @ts-ignore
-        this.proxy.on("incoming", (data: any, meta: { name: string }, toClient: Client, toServer: Client) => {
+        this.proxy.on("incoming", (data: any, meta: { name: string }, toClient: AAA, toServer: Client) => {
             if (this.packetFilter.handleIncomingPacket(meta, data)) return
             toClient.write(meta.name, data)
         })

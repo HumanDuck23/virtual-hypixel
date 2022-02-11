@@ -1,4 +1,4 @@
-import {configInterface} from "../interfaces/configInterface";
+import {configInterface} from "../interfaces/configInterface"
 
 export class PacketFilter {
 

@@ -17,6 +17,10 @@ export const utils = {
             return color + (bold ? mcColors.BOLD : "") + (underline ? mcColors.UNDERLINE : "") + (italic ? mcColors.ITALIC : "") + (strike ? mcColors.STRIKETHROUGH : "") + (obf ? mcColors.OBF : "") + text + mcColors.RESET
         },
 
+        colorTextCustomReset(text: string, color: mcColors, reset: mcColors, bold = false, underline = false, italic = false, strike = false, obf = false) {
+            return color + (bold ? mcColors.BOLD : "") + (underline ? mcColors.UNDERLINE : "") + (italic ? mcColors.ITALIC : "") + (strike ? mcColors.STRIKETHROUGH : "") + (obf ? mcColors.OBF : "") + text + reset
+        },
+
         removeFormattingStrings(message: string) {
             let n = ""
             let skipNext = false

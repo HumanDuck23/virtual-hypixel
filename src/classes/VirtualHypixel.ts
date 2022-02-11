@@ -3,6 +3,7 @@ import {InstantConnectProxy} from "prismarine-proxy"
 import {PacketFilter} from "./PacketFilter"
 import {Client} from "minecraft-protocol"
 import {Logger} from "./Logger"
+import {_ModuleBase} from "../modules/_ModuleBase";
 
 
 export class VirtualHypixel {
@@ -15,6 +16,9 @@ export class VirtualHypixel {
     // class instances
     logger: Logger = new Logger()
     packetFilter: PacketFilter
+
+    // modules
+    modules: _ModuleBase[] = []
 
     constructor(config: configInterface) {
         this.logger.info(`Virtual Hypixel ${this.version} is starting...`)
@@ -39,8 +43,13 @@ export class VirtualHypixel {
         })
 
         // @ts-ignore
-        this.proxy.on("incoming", (data: any, meta: { name: string }, toClient: AAA, toServer: Client) => {
+        this.proxy.on("incoming", (data: any, meta: { name: string }, toClient: Client, toServer: Client) => {
             if (this.packetFilter.handleIncomingPacket(meta, data)) return
+
+            for (let module of this.modules) {
+                module.onPacket(meta, data)
+            }
+
             toClient.write(meta.name, data)
         })
 

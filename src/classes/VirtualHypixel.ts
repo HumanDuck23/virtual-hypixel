@@ -32,8 +32,9 @@ export class VirtualHypixel {
                 this.client = client
 
                 // reload modules when reconnecting
+                this.logger.info("Forwarding your connection and reloading modules...")
                 this.modules = []
-                this.modules.push(new PlayersModule(this.client))
+                this.modules.push(new PlayersModule(this.client, this.config.account.hypixelApiKey))
 
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },

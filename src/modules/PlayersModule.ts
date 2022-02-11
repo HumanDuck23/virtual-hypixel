@@ -1,7 +1,10 @@
 import {_ModuleBase} from "./_ModuleBase"
 import {Client} from "minecraft-protocol"
-import fs, {exists} from "fs"
 import {Player} from "../classes/Player"
+import {utils} from "../utils"
+import {mcColors} from "../data/mcColors"
+
+const ChatMessage = require('prismarine-chat')('1.8')
 
 export class PlayersModule extends _ModuleBase {
 
@@ -47,6 +50,23 @@ export class PlayersModule extends _ModuleBase {
                 .catch(e => {
                     this.logger.error(`Error loading current gamemode: ${e}`)
                 })
+        } else if (meta.name === "chat") {
+            const m = new ChatMessage(JSON.parse(data.message))
+            const playerCountRE = /\(([0-9]*)\/([0-9]*)\)/
+
+            const ex = playerCountRE.exec(m.toString())
+            if (ex && ex[1] === ex[2]) {
+                setTimeout(() => {
+                    let sentToClient = 0
+                    for (let player of this.players) {
+                        sentToClient++
+                        utils.message.sendMessage(this.client, player.name ? player.name : player.uuid)
+                    }
+                    for (let i = 0; i < parseInt(ex[2]) - 1 - sentToClient; i++) {
+                        utils.message.sendMessage(this.client, utils.message.colorText("Nicked player!", mcColors.RED, true))
+                    }
+                }, 2000)
+            }
         }
     }
 

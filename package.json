@@ -9,6 +9,9 @@
   "author": "_Spqgett1#6969",
   "license": "ISC",
   "dependencies": {
-    "colorts": "^0.1.63"
+    "axios": "^0.25.0",
+    "colorts": "^0.1.63",
+    "prismarine-chat": "^1.5.0",
+    "prismarine-proxy": "^1.1.1"
   }
 }

@@ -66,8 +66,12 @@ export class PlayersModule extends _ModuleBase {
                     for (let player of this.players) {
                         sentToClient++
                         if (player.currentMode) {
-                            // @ts-ignore
-                            utils.message.sendMessage(this.client, statsObject[player.currentMode](player.playerObj))
+                            if (Object.keys(statsObject).includes(player.currentMode)) {
+                                // @ts-ignore
+                                utils.message.sendMessage(this.client, statsObject[player.currentMode](player.playerObj))
+                            } else {
+                                utils.message.sendMessage(this.client, statsObject.getPlayerText(player.playerObj))
+                            }
                         }
                     }
                     for (let i = 0; i < parseInt(ex[2]) - 1 - sentToClient; i++) {

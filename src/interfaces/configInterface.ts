@@ -8,7 +8,7 @@ export interface configInterface {
     },
 
 
-    game: {
+    packet: {
         enableMods: boolean,
         particles: boolean
     }

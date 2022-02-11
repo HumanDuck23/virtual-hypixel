@@ -1,13 +1,16 @@
 // Class to contain players
 
 import axios from "axios"
+import * as Process from "process";
 
 export class Player {
 
     name?: string
     currentMode?: string
     online?: boolean
+    playerObj?: any
     uuid: string
+
 
     constructor(uuid: string) {
         this.uuid = uuid
@@ -57,6 +60,22 @@ export class Player {
                         this.online = false
                     }
                     resolve(this.online)
+                } else {
+                    reject(`Error with hypixel api: ${res.status}`)
+                }
+            } catch (e) {
+                reject(e)
+            }
+        })
+    }
+
+    loadStats(apiKey: string) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(`https://api.hypixel.net/player?uuid=${this.uuid}&key=${apiKey}`)
+                if (res.data.success) {
+                    this.playerObj = res.data.player
+                    resolve(true)
                 } else {
                     reject(`Error with hypixel api: ${res.status}`)
                 }

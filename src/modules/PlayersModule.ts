@@ -3,6 +3,7 @@ import {Client} from "minecraft-protocol"
 import {Player} from "../classes/Player"
 import {utils} from "../utils"
 import {mcColors} from "../data/mcColors"
+import {statsObject} from "../data/statsObject";
 
 const ChatMessage = require('prismarine-chat')('1.8')
 
@@ -31,6 +32,10 @@ export class PlayersModule extends _ModuleBase {
                                     if (e) {
                                         if (player.currentMode === this.clientPlayer.currentMode) {
                                             this.players.push(player)
+                                            player.loadStats(this.apiKey)
+                                                .catch(e => {
+                                                    this.logger.error(`Error loading stats of ${player.name}: ${e}`)
+                                                })
                                         }
                                     }
                                 })
@@ -60,7 +65,10 @@ export class PlayersModule extends _ModuleBase {
                     let sentToClient = 0
                     for (let player of this.players) {
                         sentToClient++
-                        utils.message.sendMessage(this.client, player.name ? player.name : player.uuid)
+                        if (player.currentMode) {
+                            // @ts-ignore
+                            utils.message.sendMessage(this.client, statsObject[player.currentMode](player.playerObj))
+                        }
                     }
                     for (let i = 0; i < parseInt(ex[2]) - 1 - sentToClient; i++) {
                         utils.message.sendMessage(this.client, utils.message.colorText("Nicked player!", mcColors.RED, true))

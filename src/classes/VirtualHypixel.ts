@@ -3,8 +3,8 @@ import {InstantConnectProxy} from "prismarine-proxy"
 import {PacketFilter} from "./PacketFilter"
 import {Client} from "minecraft-protocol"
 import {Logger} from "./Logger"
-import {_ModuleBase} from "../modules/_ModuleBase";
-import {PlayersModule} from "../modules/PlayersModule";
+import {_ModuleBase} from "../modules/_ModuleBase"
+import {PlayersModule} from "../modules/PlayersModule"
 
 
 export class VirtualHypixel {

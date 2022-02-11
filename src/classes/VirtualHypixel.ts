@@ -4,6 +4,7 @@ import {PacketFilter} from "./PacketFilter"
 import {Client} from "minecraft-protocol"
 import {Logger} from "./Logger"
 import {_ModuleBase} from "../modules/_ModuleBase";
+import {PlayersModule} from "../modules/PlayersModule";
 
 
 export class VirtualHypixel {
@@ -29,6 +30,11 @@ export class VirtualHypixel {
         this.proxy =  new InstantConnectProxy({
             loginHandler: (client) => {
                 this.client = client
+
+                // reload modules when reconnecting
+                this.modules = []
+                this.modules.push(new PlayersModule(this.client))
+
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },
             serverOptions: {

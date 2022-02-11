@@ -10,6 +10,7 @@ export class VirtualHypixel {
     version: string = "beta-0.0.1"
     config: configInterface
     proxy: InstantConnectProxy
+    client: Client | undefined
 
     // class instances
     logger: Logger = new Logger()
@@ -23,6 +24,7 @@ export class VirtualHypixel {
 
         this.proxy =  new InstantConnectProxy({
             loginHandler: (client) => {
+                this.client = client
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },
             serverOptions: {

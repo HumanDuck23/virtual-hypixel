@@ -12,8 +12,8 @@ export const statsObject = {
 
         const wText = utils.message.colorText(`W: ${wins}`, mcColors.GREEN)
         const lText = utils.message.colorText(`L: ${losses}`, mcColors.RED)
-        const wsText = utils.message.colorText(`W: ${ws}`, mcColors.LIGHT_PURPLE)
-        const bwsText = utils.message.colorText(`W: ${bws}`, mcColors.DARK_PURPLE)
+        const wsText = utils.message.colorText(`WS: ${ws}`, mcColors.LIGHT_PURPLE)
+        const bwsText = utils.message.colorText(`BWS: ${bws}`, mcColors.DARK_PURPLE)
         return utils.message.colorText(`${wText} - ${lText} - ${wsText} - ${bwsText}`, mcColors.WHITE)
     }
 }

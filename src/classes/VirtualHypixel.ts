@@ -46,6 +46,11 @@ export class VirtualHypixel {
                 this.modules.push(this.playerModule)
                 this.modules.push(this.commandModule)
 
+                const line = utils.message.colorText("------------------------------------", mcColors.DARK_PURPLE, true, false, false, false, true)
+                const m1 = utils.message.colorText("Thank you for using Virtual Hypixel!", mcColors.GOLD, true)
+                const m2 = utils.message.colorText("                  Have Fun!              ", mcColors.GOLD, true)
+                utils.message.sendMessage(this.client, `${line}\n\n${m1}\n${m2}\n\n${line}`)
+
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },
             serverOptions: {

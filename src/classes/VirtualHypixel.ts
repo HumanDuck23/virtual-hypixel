@@ -31,7 +31,7 @@ export class VirtualHypixel {
         this.logger.info(`Virtual Hypixel ${this.version} is starting...`)
         this.config = config
 
-        this.packetFilter = new PacketFilter(this.config.packet)
+        this.packetFilter = new PacketFilter(this.config.packet, this)
 
         this.proxy =  new InstantConnectProxy({
             loginHandler: (client) => {
@@ -78,7 +78,7 @@ export class VirtualHypixel {
             toClient.write(meta.name, data)
 
             //if (meta.name === "player_info") {
-            //    fs.appendFileSync("./packetLog.txt", `========================${JSON.stringify(meta)}\n${JSON.stringify(data)}\n`)
+            //    fs.appendFileSync("./packetLog.txt", `========================\n${JSON.stringify(meta)}\n${JSON.stringify(data)}\n`)
             //}
         })
 

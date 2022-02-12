@@ -39,9 +39,20 @@ export class PlayersModule extends _ModuleBase {
                                     if (e) {
                                         if (player.currentMode === this.clientPlayer.currentMode && !this.hasPlayer(player)) {
                                             this.players.push(player)
-                                            this.client.write("player_info", { action: 0, data: [{UUID: player.uuid, name: player.name, properties: [], gamemode: 2, ping: 1}] })
                                             this.playersSent[player.uuid] = false
                                             player.loadStats(this.apiKey)
+                                                .then(() => {
+                                                    //const re = /(\[.*\]).*/
+                                                    //let name = statsObject.getPlayerText(player.playerObj).replace("§r", "").replace("§7", "")
+                                                    //if (re.exec(name) !== null) {
+                                                        // @ts-ignore
+                                                    //    name = name.replace(re.exec(name)[1], "")
+                                                    //}
+
+                                                    //if (name.length > 16) name = player.name ?? "EEEE"
+
+                                                    //this.client.write("player_info", { action: 0, data: [{UUID: player.uuid, name: name, properties: [], gamemode: 2, ping: 1}] })
+                                                })
                                                 .catch(e => {
                                                     this.logger.error(`Error loading stats of ${player.name}: ${e}`)
                                                 })
@@ -63,6 +74,7 @@ export class PlayersModule extends _ModuleBase {
                     const uuid = this.players[this.getEntityIDIndex(id)].uuid
                     this.players.splice(this.getEntityIDIndex(id), 1)
                     delete this.playersSent[uuid]
+                    //this.client.write("player_info", { action: 4, data: [{UUID: uuid}] })
                 }
             }
         } else if (meta.name === "respawn" && new Date().getTime() - this.lastRespawn > 500) {

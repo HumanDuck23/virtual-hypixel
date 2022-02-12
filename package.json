@@ -2,9 +2,15 @@
   "name": "virtual-hypixel",
   "version": "1.0.0",
   "description": "Proxy to hypixel",
-  "main": "src/app.js",
+  "main": "src/tests.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "src/tests.js",
+  "pkg": {
+    "scripts": "src/**/*.js",
+    "assets": ["src/data/favicon.txt", "node_modules/**/*"],
+    "outputPath": "dist"
   },
   "author": "_Spqgett1#6969",
   "license": "ISC",

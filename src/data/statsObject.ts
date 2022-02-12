@@ -1,5 +1,5 @@
 import {utils} from "../utils"
-import {mcColors} from "./mcColors";
+import {mcColors} from "./mcColors"
 
 export const statsObject = {
     "DUELS_SUMO_DUEL" (player: any) {
@@ -306,10 +306,11 @@ export const statsObject = {
     },
 
     genWLWSBWS(player: any, w: any, l: any, ws: any, bws: any) {
+        const bar = utils.message.colorText("II", mcColors.DARK_PURPLE, true, false, false, false, true)
         const wText = utils.message.colorText(`W: ${w}`, mcColors.GREEN)
         const lText = utils.message.colorText(`L: ${l}`, mcColors.RED)
         const wsText = utils.message.colorText(`WS: ${ws}`, mcColors.LIGHT_PURPLE)
         const bwsText = utils.message.colorText(`BWS: ${bws}`, mcColors.DARK_PURPLE)
-        return utils.message.colorText(`${this.getPlayerText(player)} - ${wText} - ${lText} - ${wsText} - ${bwsText}`, mcColors.WHITE)
+        return utils.message.colorText(`${bar} ${this.getPlayerText(player)} - ${wText} - ${lText} - ${wsText} - ${bwsText}`, mcColors.WHITE)
     }
 }

@@ -20,6 +20,9 @@ export class CommandModule extends _ModuleBase {
                 else
                     utils.message.sendMessage(this.client, utils.message.colorText("You need to be in game to re-queue!", mcColors.RED, true))
                 return true
+            } else if (data.message === "/l") {
+                if (this.virtual.playerModule)
+                    this.virtual.playerModule.clientPlayer.currentMode = "LOBBY"
             }
         }
 

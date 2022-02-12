@@ -36,6 +36,7 @@ export class VirtualHypixel {
         this.proxy =  new InstantConnectProxy({
             loginHandler: (client) => {
                 this.client = client
+                this.logger.info(`Logging in as ${client.profile.name}...`)
 
                 // reload modules when reconnecting
                 this.logger.info("Forwarding your connection and reloading modules...")

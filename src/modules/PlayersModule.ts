@@ -16,6 +16,8 @@ export class PlayersModule extends _ModuleBase {
     lastRespawn: number = 0
     config: configInterface
 
+    dodging: boolean = false
+
     constructor(client: Client, config: configInterface) {
         super("Players",  "1.0.0", client)
         this.config = config
@@ -61,11 +63,12 @@ export class PlayersModule extends _ModuleBase {
         } else if (meta.name === "chat") {
             const m = new ChatMessage(JSON.parse(data.message))
 
-            if (m.toString() === "Are you sure? Type /lobby again if you really want to quit.") {
+            if (m.toString() === "Are you sure? Type /lobby again if you really want to quit." && this.dodging) {
+                this.dodging = false
                 setTimeout(() => {
                     toServer.write("chat", { message: "/l" })
                     return
-                }, 500)
+                }, 700)
             }
 
             const playerCountRE = /\(([0-9]*)\/([0-9]*)\)/
@@ -82,16 +85,21 @@ export class PlayersModule extends _ModuleBase {
                                 const s = statsObject[player.currentMode](player.playerObj)
                                 utils.message.sendMessage(this.client, s.t)
                                 if (this.config.autododge.shouldDodge && this.clientPlayer.currentMode) {
-                                    const criteria = this.config.autododge.dodge[this.clientPlayer.currentMode]
-                                    if (
-                                        criteria.wins && s.wins > criteria.wins ||
-                                        criteria.ws && s.ws > criteria.ws ||
-                                        criteria.wlr && (s.losses !== 0 ? s.losses/s.wins : s.wins) > criteria.wlr
-                                     ) {
-                                        utils.message.sendMessage(this.client, utils.message.colorText("Dodging!", mcColors.RED, true))
-                                        setTimeout(() => {
-                                            toServer.write("chat", { message: "/l" })
-                                        }, 400)
+                                    const hasMode = Object.keys(this.config.autododge.dodge).includes(this.clientPlayer.currentMode)
+                                    const hasAll = Object.keys(this.config.autododge.dodge).includes("ALL")
+                                    if (hasMode || hasAll) {
+                                        const criteria = this.config.autododge.dodge[hasMode ? this.clientPlayer.currentMode : "ALL"]
+                                        if (
+                                            criteria.wins && s.wins > criteria.wins ||
+                                            criteria.ws && s.ws > criteria.ws ||
+                                            criteria.wlr && (s.losses !== 0 ? s.wins/s.losses : s.wins) > criteria.wlr
+                                        ) {
+                                            utils.message.sendMessage(this.client, utils.message.colorText("Dodging!", mcColors.RED, true))
+                                            setTimeout(() => {
+                                                this.dodging = true
+                                                toServer.write("chat", { message: "/l" })
+                                            }, 700)
+                                        }
                                     }
                                 }
                             } else {

@@ -39,6 +39,7 @@ export class PlayersModule extends _ModuleBase {
                                     if (e) {
                                         if (player.currentMode === this.clientPlayer.currentMode && !this.hasPlayer(player)) {
                                             this.players.push(player)
+                                            this.client.write("player_info", { action: 0, data: [{UUID: player.uuid, name: player.name, properties: [], gamemode: 2, ping: 1}] })
                                             this.playersSent[player.uuid] = false
                                             player.loadStats(this.apiKey)
                                                 .catch(e => {

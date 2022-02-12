@@ -67,13 +67,19 @@ export class VirtualHypixel {
 
         // @ts-ignore
         this.proxy.on("incoming", (data: any, meta: { name: string }, toClient: Client, toServer: Client) => {
-            if (this.packetFilter.handleIncomingPacket(meta, data)) return
+            const handled = this.packetFilter.handleIncomingPacket(meta, data)
+            if (handled[0]) return
+            else data = handled[1]
 
             for (let module of this.modules) {
                 module.onInPacket(meta, data, toServer)
             }
 
             toClient.write(meta.name, data)
+
+            //if (meta.name === "player_info") {
+            //    fs.appendFileSync("./packetLog.txt", `========================${JSON.stringify(meta)}\n${JSON.stringify(data)}\n`)
+            //}
         })
 
         // @ts-ignore

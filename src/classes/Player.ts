@@ -10,10 +10,12 @@ export class Player {
     online?: boolean
     playerObj?: any
     uuid: string
+    entityID: number
 
 
-    constructor(uuid: string) {
+    constructor(uuid: string, entityID: number) {
         this.uuid = uuid
+        this.entityID = entityID
     }
 
     exists() {

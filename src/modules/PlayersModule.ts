@@ -23,20 +23,20 @@ export class PlayersModule extends _ModuleBase {
         super("Players",  "1.0.0", client, virtual)
         this.config = virtual.config
         this.apiKey = this.config.account.hypixelApiKey
-        this.clientPlayer = new Player(client.profile.id)
+        this.clientPlayer = new Player(client.profile.id, -1)
     }
 
     onInPacket(meta: any, data: any, toServer: Client) {
         if (meta.name === "named_entity_spawn") {
-            if (data.playerUUID !== undefined) {
-                const player = new Player(data.playerUUID)
+            if (data.playerUUID !== undefined && data.entityId !== undefined) {
+                const player = new Player(data.playerUUID, data.entityId)
                 player.exists()
                     .then(exists => {
                         if (exists) {
                             player.loadMode(this.apiKey)
                                 .then((e) => {
                                     if (e) {
-                                        if (player.currentMode === this.clientPlayer.currentMode) {
+                                        if (player.currentMode === this.clientPlayer.currentMode && !this.hasPlayer(player)) {
                                             this.players.push(player)
                                             player.loadStats(this.apiKey)
                                                 .catch(e => {
@@ -53,6 +53,12 @@ export class PlayersModule extends _ModuleBase {
                     .catch(() => {
                         // player doesn't exist, do nothing
                     })
+            }
+        } else if (meta.name === "entity_destroy") {
+            for (let id of data.entityIds) {
+                if (this.getEntityIDIndex(id) !== -1) {
+                    this.players.splice(this.getEntityIDIndex(id), 1)
+                }
             }
         } else if (meta.name === "respawn" && new Date().getTime() - this.lastRespawn > 500) {
             this.lastRespawn = new Date().getTime()
@@ -75,7 +81,7 @@ export class PlayersModule extends _ModuleBase {
             const playerCountRE = /\(([0-9]*)\/([0-9]*)\)/
 
             const ex = playerCountRE.exec(m.toString())
-            if (ex && ex[1] === ex[2]) {
+            if (ex && parseInt(ex[1]) > 1) {
                 setTimeout(() => {
                     let sentToClient = 0
                     for (let player of this.players) {
@@ -116,4 +122,18 @@ export class PlayersModule extends _ModuleBase {
         }
     }
 
+
+    hasPlayer(player: Player) {
+        for (let p of this.players) {
+            if (p.uuid === player.uuid) return true
+        }
+        return false
+    }
+
+    getEntityIDIndex(id: number) {
+        for (const [index, player] of this.players.entries()) {
+            if (player.entityID === id) return index
+        }
+        return -1
+    }
 }

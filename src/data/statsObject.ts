@@ -58,7 +58,7 @@ export const statsObject = {
         return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
-    "DUELS_BRIDGE_2v2v2v2" (player: any) {
+    "DUELS_BRIDGE_2V2V2V2" (player: any) {
         const d = player.stats.Duels
 
         const wins = d.bridge_2v2v2v2_wins ?? 0
@@ -69,7 +69,7 @@ export const statsObject = {
         return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
-    "DUELS_BRIDGE_3v3v3v3" (player: any) {
+    "DUELS_BRIDGE_3V3V3V3" (player: any) {
         const d = player.stats.Duels
 
         const wins = d.bridge_3v3v3v3_wins ?? 0
@@ -293,13 +293,13 @@ export const statsObject = {
     getPlayerText(player: any) {
         if (player.monthlyPackageRank === "SUPERSTAR") {
             // @ts-ignore
-            return utils.message.colorText(`[MVP${utils.message.colorTextCustomReset("++", mcColors[player.rankPlusColor], mcColors.GOLD)}] ${player.displayname}`, mcColors.GOLD)
+            return utils.message.colorText(`[MVP${utils.message.colorTextCustomReset("++", mcColors[player.rankPlusColor ?? "RED"], mcColors.GOLD)}] ${player.displayname}`, mcColors.GOLD)
         } else if (player.newPackageRank) {
             if (player.newPackageRank === "VIP" || player.newPackageRank === "VIP_PLUS") {
                 return utils.message.colorText(`[VIP${player.newPackageRank === "VIP_PLUS" ? utils.message.colorTextCustomReset("+", mcColors.GOLD, mcColors.GREEN) : ""}] ${player.displayname}`, mcColors.GREEN)
             } else if (player.newPackageRank === "MVP" || player.newPackageRank === "MVP_PLUS") {
                 // @ts-ignore
-                return utils.message.colorText(`[MVP${player.newPackageRank === "MVP_PLUS" ? utils.message.colorTextCustomReset("+", mcColors[player.rankPlusColor], mcColors.AQUA) : ""}] ${player.displayname}`, mcColors.AQUA)
+                return utils.message.colorText(`[MVP${player.newPackageRank === "MVP_PLUS" ? utils.message.colorTextCustomReset("+", mcColors[player.rankPlusColor ?? "RED"], mcColors.AQUA) : ""}] ${player.displayname}`, mcColors.AQUA)
             }
         }
         return utils.message.colorText(player.displayname, mcColors.GRAY)

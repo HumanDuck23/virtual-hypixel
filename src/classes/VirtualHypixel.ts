@@ -5,6 +5,9 @@ import {Client} from "minecraft-protocol"
 import {Logger} from "./Logger"
 import {_ModuleBase} from "../modules/_ModuleBase"
 import {PlayersModule} from "../modules/PlayersModule"
+import {mcColors} from "../data/mcColors"
+import {utils} from "../utils"
+import fs from "fs"
 
 
 export class VirtualHypixel {
@@ -40,8 +43,9 @@ export class VirtualHypixel {
             },
             serverOptions: {
                 version: "1.8.9",
-                motd: `Virtual Hypixel ${this.version}`,
-                maxPlayers: 69
+                motd: `${utils.message.colorText("OOO", mcColors.GOLD, true, false, false, false, true)} ${utils.message.colorText(`Virtual Hypixel ${utils.message.colorText(this.version, mcColors.GREEN)}`, mcColors.AQUA)} ${utils.message.colorText("OOO", mcColors.GOLD, true, false, false, false, true)}`,
+                maxPlayers: 69,
+                favicon: fs.readFileSync("./data/favicon.txt").toString()
             },
             clientOptions: {
                 version: "1.8.9",

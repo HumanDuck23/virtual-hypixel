@@ -4,6 +4,7 @@ import {Player} from "../classes/Player"
 import {utils} from "../utils"
 import {mcColors} from "../data/mcColors"
 import {statsObject} from "../data/statsObject";
+import {configInterface} from "../interfaces/configInterface";
 
 const ChatMessage = require('prismarine-chat')('1.8')
 
@@ -13,14 +14,16 @@ export class PlayersModule extends _ModuleBase {
     clientPlayer: Player
     apiKey: string
     lastRespawn: number = 0
+    config: configInterface
 
-    constructor(client: Client, apiKey: string) {
+    constructor(client: Client, config: configInterface) {
         super("Players",  "1.0.0", client)
-        this.apiKey = apiKey
+        this.config = config
+        this.apiKey = config.account.hypixelApiKey
         this.clientPlayer = new Player(client.profile.id)
     }
 
-    onPacket(meta: any, data: any) {
+    onPacket(meta: any, data: any, toServer: Client) {
         if (meta.name === "named_entity_spawn") {
             if (data.playerUUID !== undefined) {
                 const player = new Player(data.playerUUID)
@@ -57,6 +60,14 @@ export class PlayersModule extends _ModuleBase {
                 })
         } else if (meta.name === "chat") {
             const m = new ChatMessage(JSON.parse(data.message))
+
+            if (m.toString() === "Are you sure? Type /lobby again if you really want to quit.") {
+                setTimeout(() => {
+                    toServer.write("chat", { message: "/l" })
+                    return
+                }, 500)
+            }
+
             const playerCountRE = /\(([0-9]*)\/([0-9]*)\)/
 
             const ex = playerCountRE.exec(m.toString())
@@ -68,7 +79,21 @@ export class PlayersModule extends _ModuleBase {
                         if (player.currentMode) {
                             if (Object.keys(statsObject).includes(player.currentMode)) {
                                 // @ts-ignore
-                                utils.message.sendMessage(this.client, statsObject[player.currentMode](player.playerObj))
+                                const s = statsObject[player.currentMode](player.playerObj)
+                                utils.message.sendMessage(this.client, s.t)
+                                if (this.config.autododge.shouldDodge && this.clientPlayer.currentMode) {
+                                    const criteria = this.config.autododge.dodge[this.clientPlayer.currentMode]
+                                    if (
+                                        criteria.wins && s.wins > criteria.wins ||
+                                        criteria.ws && s.ws > criteria.ws ||
+                                        criteria.wlr && (s.losses !== 0 ? s.losses/s.wins : s.wins) > criteria.wlr
+                                     ) {
+                                        utils.message.sendMessage(this.client, utils.message.colorText("Dodging!", mcColors.RED, true))
+                                        setTimeout(() => {
+                                            toServer.write("chat", { message: "/l" })
+                                        }, 400)
+                                    }
+                                }
                             } else {
                                 utils.message.sendMessage(this.client, statsObject.getPlayerText(player.playerObj))
                             }

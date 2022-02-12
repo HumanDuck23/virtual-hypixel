@@ -37,7 +37,7 @@ export class VirtualHypixel {
                 // reload modules when reconnecting
                 this.logger.info("Forwarding your connection and reloading modules...")
                 this.modules = []
-                this.modules.push(new PlayersModule(this.client, this.config.account.hypixelApiKey))
+                this.modules.push(new PlayersModule(this.client, this.config))
 
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },
@@ -58,7 +58,7 @@ export class VirtualHypixel {
             if (this.packetFilter.handleIncomingPacket(meta, data)) return
 
             for (let module of this.modules) {
-                module.onPacket(meta, data)
+                module.onPacket(meta, data, toServer)
             }
 
             toClient.write(meta.name, data)

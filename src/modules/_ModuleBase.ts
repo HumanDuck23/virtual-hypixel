@@ -16,6 +16,6 @@ export class _ModuleBase {
         this.logger.info(`Loaded module: ${name} v${version}`)
     }
 
-    onPacket(meta: any, data: any) {}
+    onPacket(meta: any, data: any, toServer: Client) {}
 
 }

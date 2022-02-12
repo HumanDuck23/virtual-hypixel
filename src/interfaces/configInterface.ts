@@ -14,10 +14,13 @@ export interface configInterface {
     },
 
     autododge: {
-        [key: string]: {
-            wlr?: number,
-            wins?: number,
-            ws?: number
+        shouldDodge: boolean,
+        dodge: {
+            [key: string]: {
+                wlr?: number,
+                wins?: number,
+                ws?: number
+            }
         }
     }
 }

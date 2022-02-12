@@ -10,7 +10,7 @@ export const statsObject = {
         const ws = d.current_sumo_winstreak ?? 0
         const bws = d.best_sumo_winstreak ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Bridge Modes
@@ -22,7 +22,7 @@ export const statsObject = {
         const ws = d.current_bridge_winstreak ?? 0
         const bws = d.best_bridge_winstreak ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_BRIDGE_DOUBLES" (player: any) {
@@ -33,7 +33,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bridge_doubles ?? 0
         const bws = d.best_winstreak_mode_bridge_doubles ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_BRIDGE_THREES" (player: any) {
@@ -44,7 +44,7 @@ export const statsObject = {
         const ws = d.current_bridge_winstreak ?? 0
         const bws = d.best_winstreak_mode_bridge_threes ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_BRIDGE_FOUR" (player: any) {
@@ -55,7 +55,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bridge_four ?? 0
         const bws = d.best_winstreak_mode_bridge_four ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_BRIDGE_2v2v2v2" (player: any) {
@@ -66,7 +66,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bridge_2v2v2v2 ?? 0
         const bws = d.best_winstreak_mode_bridge_2v2v2v2 ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_BRIDGE_3v3v3v3" (player: any) {
@@ -77,7 +77,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bridge_3v3v3v3 ?? 0
         const bws = d.best_winstreak_mode_bridge_3v3v3v3 ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_CAPTURE_THREES" (player: any) {
@@ -88,7 +88,7 @@ export const statsObject = {
         const ws = d.best_winstreak_mode_capture_threes ?? 0
         const bws = d.best_winstreak_mode_capture_threes ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // UHC Modes
@@ -100,7 +100,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_uhc_duel ?? 0
         const bws = d.best_winstreak_mode_uhc_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_UHC_DOUBLES" (player: any) {
@@ -111,7 +111,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_uhc_doubles ?? 0
         const bws = d.best_winstreak_mode_uhc_doubles ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_UHC_FOUR" (player: any) {
@@ -122,7 +122,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_uhc_four ?? 0
         const bws = d.best_winstreak_mode_uhc_four ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_UHC_MEETUP" (player: any) {
@@ -133,7 +133,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_uhc_meetup ?? 0
         const bws = d.best_winstreak_mode_uhc_meetup ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // OP Mode
@@ -145,7 +145,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_op_duel ?? 0
         const bws = d.best_winstreak_mode_op_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Skywars Modes
@@ -157,7 +157,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_sw_duel ?? 0
         const bws = d.best_winstreak_mode_sw_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_SW_DOUBLES" (player: any) {
@@ -168,7 +168,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_sw_double ?? 0
         const bws = d.best_winstreak_mode_sw_doubles ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Classic Mode
@@ -180,7 +180,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_classic_duel ?? 0
         const bws = d.best_winstreak_mode_classic_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Bow Mode
@@ -192,7 +192,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bow_duel ?? 0
         const bws = d.best_winstreak_mode_bow_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Blitz Mode
@@ -204,7 +204,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_blitz_duel ?? 0
         const bws = d.best_winstreak_mode_blitz_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Bow Spleef Mode
@@ -216,7 +216,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_bowspleef_duel ?? 0
         const bws = d.best_winstreak_mode_bowspleef_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Parkour Mode
@@ -228,7 +228,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_parkour_eight ?? 0
         const bws = d.best_winstreak_mode_parkour_eight ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Boxing Mode
@@ -240,7 +240,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_boxing_duel ?? 0
         const bws = d.best_winstreak_mode_boxing_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Nodebuff Mode
@@ -252,7 +252,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_potion_duel ?? 0
         const bws = d.best_winstreak_mode_potion_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Megawalls Modes
@@ -264,7 +264,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_mw_duel ?? 0
         const bws = d.best_winstreak_mode_mw_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     "DUELS_MW_DOUBLES" (player: any) {
@@ -275,7 +275,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_mw_double ?? 0
         const bws = d.best_winstreak_mode_mw_doubles ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     // Combo Mode
@@ -287,7 +287,7 @@ export const statsObject = {
         const ws = d.current_winstreak_mode_combo_duel ?? 0
         const bws = d.best_winstreak_mode_combo_duel ?? 0
 
-        return this.genWLWSBWS(player, wins, losses, ws, bws)
+        return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
     getPlayerText(player: any) {

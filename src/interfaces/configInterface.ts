@@ -11,5 +11,13 @@ export interface configInterface {
     packet: {
         enableMods: boolean,
         particles: boolean
+    },
+
+    autododge: {
+        [key: string]: {
+            wlr?: number,
+            wins?: number,
+            ws?: number
+        }
     }
 }

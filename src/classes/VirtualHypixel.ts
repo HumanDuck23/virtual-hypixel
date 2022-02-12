@@ -8,6 +8,7 @@ import {PlayersModule} from "../modules/PlayersModule"
 import {mcColors} from "../data/mcColors"
 import {utils} from "../utils"
 import fs from "fs"
+import {CommandModule} from "../modules/CommandModule";
 
 
 export class VirtualHypixel {
@@ -22,6 +23,8 @@ export class VirtualHypixel {
     packetFilter: PacketFilter
 
     // modules
+    playerModule: PlayersModule | null = null
+    commandModule: CommandModule | null = null
     modules: _ModuleBase[] = []
 
     constructor(config: configInterface) {
@@ -36,8 +39,11 @@ export class VirtualHypixel {
 
                 // reload modules when reconnecting
                 this.logger.info("Forwarding your connection and reloading modules...")
+                this.playerModule = new PlayersModule(this.client, this)
+                this.commandModule = new CommandModule(this.client, this)
                 this.modules = []
-                this.modules.push(new PlayersModule(this.client, this.config))
+                this.modules.push(this.playerModule)
+                this.modules.push(this.commandModule)
 
                 return { username: config.account.email, password: config.account.password, auth: config.account.auth }
             },
@@ -58,7 +64,7 @@ export class VirtualHypixel {
             if (this.packetFilter.handleIncomingPacket(meta, data)) return
 
             for (let module of this.modules) {
-                module.onPacket(meta, data, toServer)
+                module.onInPacket(meta, data, toServer)
             }
 
             toClient.write(meta.name, data)
@@ -66,7 +72,14 @@ export class VirtualHypixel {
 
         // @ts-ignore
         this.proxy.on("outgoing", (data: { message: string, data?: any }, meta: { name: string }, toClient: Client, toServer: Client) => {
-            toServer.write(meta.name, data)
+            let intercept = false
+            for (let module of this.modules) {
+                let i = module.onOutPacket(meta, data, toServer)
+                if (i) intercept = true
+            }
+
+            if (!intercept)
+                toServer.write(meta.name, data)
         })
 
         this.logger.info(`Ready! Connect to 'localhost' to start playing!`)

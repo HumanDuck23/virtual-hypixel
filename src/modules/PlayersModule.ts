@@ -5,6 +5,7 @@ import {utils} from "../utils"
 import {mcColors} from "../data/mcColors"
 import {statsObject} from "../data/statsObject";
 import {configInterface} from "../interfaces/configInterface";
+import {VirtualHypixel} from "../classes/VirtualHypixel";
 
 const ChatMessage = require('prismarine-chat')('1.8')
 
@@ -18,14 +19,14 @@ export class PlayersModule extends _ModuleBase {
 
     dodging: boolean = false
 
-    constructor(client: Client, config: configInterface) {
-        super("Players",  "1.0.0", client)
-        this.config = config
-        this.apiKey = config.account.hypixelApiKey
+    constructor(client: Client, virtual: VirtualHypixel) {
+        super("Players",  "1.0.0", client, virtual)
+        this.config = virtual.config
+        this.apiKey = this.config.account.hypixelApiKey
         this.clientPlayer = new Player(client.profile.id)
     }
 
-    onPacket(meta: any, data: any, toServer: Client) {
+    onInPacket(meta: any, data: any, toServer: Client) {
         if (meta.name === "named_entity_spawn") {
             if (data.playerUUID !== undefined) {
                 const player = new Player(data.playerUUID)

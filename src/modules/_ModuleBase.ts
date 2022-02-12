@@ -1,5 +1,6 @@
 import {Client} from "minecraft-protocol"
 import {Logger} from "../classes/Logger";
+import {VirtualHypixel} from "../classes/VirtualHypixel";
 
 export class _ModuleBase {
 
@@ -7,15 +8,21 @@ export class _ModuleBase {
     version: string
     client: Client
     logger: Logger = new Logger()
+    virtual: VirtualHypixel
 
-    constructor(name: string, version: string, client: Client) {
+    constructor(name: string, version: string, client: Client, virtual: VirtualHypixel) {
         this.name = name
         this.version = version
         this.client = client
+        this.virtual = virtual
 
         this.logger.info(`Loaded module: ${name} v${version}`)
     }
 
-    onPacket(meta: any, data: any, toServer: Client) {}
+    onInPacket(meta: any, data: any, toServer: Client) {}
+
+    onOutPacket(meta: any, data: any, toServer: Client): boolean {
+        return false
+    }
 
 }

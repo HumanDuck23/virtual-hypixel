@@ -9,6 +9,7 @@ import {mcColors} from "../data/mcColors"
 import {utils} from "../utils"
 import fs from "fs"
 import {CommandModule} from "../modules/CommandModule";
+import {StreamModule} from "../modules/StreamModule";
 
 
 export class VirtualHypixel {
@@ -25,6 +26,7 @@ export class VirtualHypixel {
     // modules
     playerModule: PlayersModule | null = null
     commandModule: CommandModule | null = null
+    streamModule: StreamModule | null = null
     modules: _ModuleBase[] = []
 
     constructor(config: configInterface) {
@@ -42,9 +44,11 @@ export class VirtualHypixel {
                 this.logger.info("Forwarding your connection and reloading modules...")
                 this.playerModule = new PlayersModule(this.client, this)
                 this.commandModule = new CommandModule(this.client, this)
+                //this.streamModule = new StreamModule(this.client, this)
                 this.modules = []
                 this.modules.push(this.playerModule)
                 this.modules.push(this.commandModule)
+                //this.modules.push(this.streamModule)
 
                 const line = utils.message.colorText("------------------------------------", mcColors.DARK_PURPLE, true, false, false, false, true)
                 const m1 = utils.message.colorText("Thank you for using Virtual Hypixel!", mcColors.GOLD, true)

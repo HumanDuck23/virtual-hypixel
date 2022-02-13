@@ -107,30 +107,34 @@ export class PlayersModule extends _ModuleBase {
                             sentToClient++
                             this.playersSent[player.uuid] = true
                             if (player.currentMode) {
-                                if (Object.keys(statsObject).includes(player.currentMode)) {
-                                    // @ts-ignore
-                                    const s = statsObject[player.currentMode](player.playerObj)
-                                    utils.message.sendMessage(this.client, s.t)
-                                    if (this.config.autododge.shouldDodge && this.clientPlayer.currentMode) {
-                                        const hasMode = Object.keys(this.config.autododge.dodge).includes(this.clientPlayer.currentMode)
-                                        const hasAll = Object.keys(this.config.autododge.dodge).includes("ALL")
-                                        if (hasMode || hasAll) {
-                                            const criteria = this.config.autododge.dodge[hasMode ? this.clientPlayer.currentMode : "ALL"]
-                                            if (
-                                                criteria.wins && s.wins > criteria.wins ||
-                                                criteria.ws && s.ws > criteria.ws ||
-                                                criteria.wlr && (s.losses !== 0 ? s.wins/s.losses : s.wins) > criteria.wlr
-                                            ) {
-                                                utils.message.sendMessage(this.client, utils.message.colorText("Dodging!", mcColors.RED, true))
-                                                setTimeout(() => {
-                                                    this.dodging = true
-                                                    toServer.write("chat", { message: "/l" })
-                                                }, 700)
+                                if (player.playerObj !== undefined) {
+                                    if (Object.keys(statsObject).includes(player.currentMode)) {
+                                        // @ts-ignore
+                                        const s = statsObject[player.currentMode](player.playerObj)
+                                        utils.message.sendMessage(this.client, s.t)
+                                        if (this.config.autododge.shouldDodge && this.clientPlayer.currentMode) {
+                                            const hasMode = Object.keys(this.config.autododge.dodge).includes(this.clientPlayer.currentMode)
+                                            const hasAll = Object.keys(this.config.autododge.dodge).includes("ALL")
+                                            if (hasMode || hasAll) {
+                                                const criteria = this.config.autododge.dodge[hasMode ? this.clientPlayer.currentMode : "ALL"]
+                                                if (
+                                                    criteria.wins && s.wins > criteria.wins ||
+                                                    criteria.ws && s.ws > criteria.ws ||
+                                                    criteria.wlr && (s.losses !== 0 ? s.wins/s.losses : s.wins) > criteria.wlr
+                                                ) {
+                                                    utils.message.sendMessage(this.client, utils.message.colorText("Dodging!", mcColors.RED, true))
+                                                    setTimeout(() => {
+                                                        this.dodging = true
+                                                        toServer.write("chat", { message: "/l" })
+                                                    }, 700)
+                                                }
                                             }
                                         }
+                                    } else {
+                                        utils.message.sendMessage(this.client, statsObject.getPlayerText(player.playerObj))
                                     }
                                 } else {
-                                    utils.message.sendMessage(this.client, statsObject.getPlayerText(player.playerObj))
+                                    this.logger.error(`Stats of ${player.name} are undefined.`)
                                 }
                             }
                         }

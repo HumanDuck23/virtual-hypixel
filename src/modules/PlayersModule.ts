@@ -33,7 +33,7 @@ export class PlayersModule extends _ModuleBase {
                 const player = new Player(data.playerUUID, data.entityId)
                 player.exists()
                     .then(exists => {
-                        if (exists) {
+                        if (exists && this.clientPlayer.currentMode !== "LOBBY") {
                             player.loadMode(this.apiKey)
                                 .then((e) => {
                                     if (e) {
@@ -78,6 +78,7 @@ export class PlayersModule extends _ModuleBase {
                 }
             }
         } else if (meta.name === "respawn" && new Date().getTime() - this.lastRespawn > 500) {
+            this.clientPlayer.currentMode = undefined
             this.lastRespawn = new Date().getTime()
             this.players = []
             this.clientPlayer.loadMode(this.apiKey)

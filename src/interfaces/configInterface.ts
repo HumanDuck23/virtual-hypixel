@@ -22,5 +22,12 @@ export interface configInterface {
                 ws?: number
             }
         }
+    },
+
+    streamMod: {
+        autospam: {
+            limit: number
+            action: string[]
+        }
     }
 }

@@ -290,6 +290,142 @@ export const statsObject = {
         return { wins, losses, ws, bws, t: this.genWLWSBWS(player, wins, losses, ws, bws) }
     },
 
+    // Bedwars Modes
+    // Solo BW
+    "BEDWARS_EIGHT_ONE" (player: any) {
+        const b = player.stats.Bedwars
+
+        const star = player.achievements.bedwars_level
+        const wins = parseInt(b.eight_one_wins_bedwars ?? 0)
+        const losses = parseInt(b.eight_one_losses_bedwars ?? 0)
+
+        const kills = parseInt(b.eight_one_kills_bedwars ?? 0)
+        const deaths = parseInt(b.eight_one_deaths_bedwars ?? 0)
+
+        const fkills = parseInt(b.eight_one_final_kills_bedwars ?? 0)
+        const fdeaths = parseInt(b.eight_one_final_deaths_bedwars ?? 0)
+
+        const bbroken = parseInt(b.eight_one_beds_broken_bedwars ?? 0)
+        const blost = parseInt(b.eight_one_beds_lost_bedwars ?? 0)
+
+        const ws = parseInt(b.eight_one_winstreak ?? 0)
+
+        const kd = deaths !== 0 ? kills / deaths : kills
+        const fkd = fdeaths !== 0 ? fkills / fdeaths : fkills
+        const bbl = blost !== 0 ? bbroken / blost : bbroken
+        const wl = losses !== 0 ? wins / losses : wins
+
+        return { wins, losses, ws, t: this.genSWSKDFKDWLBBL(player, star, ws, kd.toFixed(2), fkd.toFixed(2), wl.toFixed(2), bbl.toFixed(2)) }
+    },
+
+    // Doubles BW
+    "BEDWARS_EIGHT_TWO" (player: any) {
+        const b = player.stats.Bedwars
+
+        const star = player.achievements.bedwars_level
+        const wins = parseInt(b.eight_two_wins_bedwars ?? 0)
+        const losses = parseInt(b.eight_two_losses_bedwars ?? 0)
+
+        const kills = parseInt(b.eight_two_kills_bedwars ?? 0)
+        const deaths = parseInt(b.eight_two_deaths_bedwars ?? 0)
+
+        const fkills = parseInt(b.eight_two_final_kills_bedwars ?? 0)
+        const fdeaths = parseInt(b.eight_two_final_deaths_bedwars ?? 0)
+
+        const bbroken = parseInt(b.eight_two_beds_broken_bedwars ?? 0)
+        const blost = parseInt(b.eight_two_beds_lost_bedwars ?? 0)
+
+        const ws = parseInt(b.eight_two_winstreak ?? 0)
+
+        const kd = deaths !== 0 ? kills / deaths : kills
+        const fkd = fdeaths !== 0 ? fkills / fdeaths : fkills
+        const bbl = blost !== 0 ? bbroken / blost : bbroken
+        const wl = losses !== 0 ? wins / losses : wins
+
+        return { wins, losses, ws, t: this.genSWSKDFKDWLBBL(player, star, ws, kd.toFixed(2), fkd.toFixed(2), wl.toFixed(2), bbl.toFixed(2)) }
+    },
+
+    // Threes BW
+    "BEDWARS_FOUR_THREE" (player: any) {
+        const b = player.stats.Bedwars
+
+        const star = player.achievements.bedwars_level
+        const wins = parseInt(b.four_three_wins_bedwars ?? 0)
+        const losses = parseInt(b.four_three_losses_bedwars ?? 0)
+
+        const kills = parseInt(b.four_three_kills_bedwars ?? 0)
+        const deaths = parseInt(b.four_three_deaths_bedwars ?? 0)
+
+        const fkills = parseInt(b.four_three_final_kills_bedwars ?? 0)
+        const fdeaths = parseInt(b.four_three_final_deaths_bedwars ?? 0)
+
+        const bbroken = parseInt(b.four_three_beds_broken_bedwars ?? 0)
+        const blost = parseInt(b.four_three_beds_lost_bedwars ?? 0)
+
+        const ws = parseInt(b.four_three_winstreak ?? 0)
+
+        const kd = deaths !== 0 ? kills / deaths : kills
+        const fkd = fdeaths !== 0 ? fkills / fdeaths : fkills
+        const bbl = blost !== 0 ? bbroken / blost : bbroken
+        const wl = losses !== 0 ? wins / losses : wins
+
+        return { wins, losses, ws, t: this.genSWSKDFKDWLBBL(player, star, ws, kd.toFixed(2), fkd.toFixed(2), wl.toFixed(2), bbl.toFixed(2)) }
+    },
+
+    // Fours BW
+    "BEDWARS_FOUR_FOUR" (player: any) {
+        const b = player.stats.Bedwars
+
+        const star = player.achievements.bedwars_level
+        const wins = parseInt(b.four_four_wins_bedwars ?? 0)
+        const losses = parseInt(b.four_four_losses_bedwars ?? 0)
+
+        const kills = parseInt(b.four_four_kills_bedwars ?? 0)
+        const deaths = parseInt(b.four_four_deaths_bedwars ?? 0)
+
+        const fkills = parseInt(b.four_four_final_kills_bedwars ?? 0)
+        const fdeaths = parseInt(b.four_four_final_deaths_bedwars ?? 0)
+
+        const bbroken = parseInt(b.four_four_beds_broken_bedwars ?? 0)
+        const blost = parseInt(b.four_four_beds_lost_bedwars ?? 0)
+
+        const ws = parseInt(b.four_four_winstreak ?? 0)
+
+        const kd = deaths !== 0 ? kills / deaths : kills
+        const fkd = fdeaths !== 0 ? fkills / fdeaths : fkills
+        const bbl = blost !== 0 ? bbroken / blost : bbroken
+        const wl = losses !== 0 ? wins / losses : wins
+
+        return { wins, losses, ws, t: this.genSWSKDFKDWLBBL(player, star, ws, kd.toFixed(2), fkd.toFixed(2), wl.toFixed(2), bbl.toFixed(2)) }
+    },
+
+    // 4v4 BW
+    "BEDWARS_TWO_FOUR" (player: any) {
+        const b = player.stats.Bedwars
+
+        const star = player.achievements.bedwars_level
+        const wins = parseInt(b.two_four_wins_bedwars ?? 0)
+        const losses = parseInt(b.two_four_losses_bedwars ?? 0)
+
+        const kills = parseInt(b.two_four_kills_bedwars ?? 0)
+        const deaths = parseInt(b.two_four_deaths_bedwars ?? 0)
+
+        const fkills = parseInt(b.two_four_final_kills_bedwars ?? 0)
+        const fdeaths = parseInt(b.two_four_final_deaths_bedwars ?? 0)
+
+        const bbroken = parseInt(b.two_four_beds_broken_bedwars ?? 0)
+        const blost = parseInt(b.two_four_beds_lost_bedwars ?? 0)
+
+        const ws = parseInt(b.two_four_winstreak ?? 0)
+
+        const kd = deaths !== 0 ? kills / deaths : kills
+        const fkd = fdeaths !== 0 ? fkills / fdeaths : fkills
+        const bbl = blost !== 0 ? bbroken / blost : bbroken
+        const wl = losses !== 0 ? wins / losses : wins
+
+        return { wins, losses, ws, t: this.genSWSKDFKDWLBBL(player, star, ws, kd.toFixed(2), fkd.toFixed(2), wl.toFixed(2), bbl.toFixed(2)) }
+    },
+
     getPlayerText(player: any) {
         if (player.monthlyPackageRank === "SUPERSTAR") {
             // @ts-ignore
@@ -303,6 +439,81 @@ export const statsObject = {
             }
         }
         return utils.message.colorText(player.displayname, mcColors.GRAY)
+    },
+
+    colorStar(star: number) {
+        let color = mcColors.GRAY
+        let colorList: mcColors[] = []
+        if (star < 100) {
+            color = mcColors.GRAY
+        } else if (star < 200) {
+            color = mcColors.WHITE
+        } else if (star < 300) {
+            color = mcColors.GOLD
+        } else if (star < 400) {
+            color = mcColors.AQUA
+        } else if (star < 500) {
+            color = mcColors.DARK_GREEN
+        } else if (star < 600) {
+            color = mcColors.DARK_AQUA
+        } else if (star < 700) {
+            color = mcColors.DARK_RED
+        } else if (star < 800) {
+            color = mcColors.LIGHT_PURPLE
+        } else if (star < 900) {
+            color = mcColors.BLUE
+        } else if (star < 1000) {
+            color = mcColors.DARK_PURPLE
+        } else if (star < 1100) {
+            colorList = [mcColors.RED, mcColors.GOLD, mcColors.YELLOW, mcColors.GREEN, mcColors.AQUA, mcColors.LIGHT_PURPLE, mcColors.DARK_PURPLE]
+        } else if (star < 1200) {
+            color = mcColors.WHITE
+        } else if (star < 1300) {
+            color = mcColors.YELLOW
+        } else if (star < 1400) {
+            color = mcColors.AQUA
+        } else if (star < 1500) {
+            color = mcColors.GREEN
+        } else if (star < 1600) {
+            color = mcColors.DARK_AQUA
+        } else if (star < 1700) {
+            color = mcColors.RED
+        } else if (star < 1800) {
+            color = mcColors.LIGHT_PURPLE
+        } else if (star < 1900) {
+            color = mcColors.BLUE
+        } else if (star < 2000) {
+            color = mcColors.DARK_PURPLE
+        } else if (star < 2100) {
+            colorList = [mcColors.DARK_GRAY, mcColors.GRAY, mcColors.WHITE, mcColors.WHITE, mcColors.GRAY, mcColors.GRAY, mcColors.DARK_GRAY]
+        } else {
+            colorList = [mcColors.RED, mcColors.GOLD, mcColors.YELLOW, mcColors.GREEN, mcColors.AQUA, mcColors.LIGHT_PURPLE, mcColors.DARK_PURPLE]
+        }
+
+        if (colorList !== []) {
+            return utils.message.colorText(`[${star}✫]`, color)
+        } else {
+            let t = ""
+            const starText = `[${star}✫]`
+            for (const [i, char] of starText.split("").entries()) {
+                if (colorList[i] !== undefined) {
+                    t += utils.message.colorText(char, colorList[i])
+                }
+            }
+            return t
+        }
+    },
+
+    genSWSKDFKDWLBBL(player: any, star: any, ws: any, kd: any, fkd: any, wl: any, bbl: any) {
+        const bar = utils.message.colorText("II", mcColors.DARK_PURPLE, true, false, false, false, true)
+        const starText = this.colorStar(parseInt(star))
+        const wsText = utils.message.colorText(`WS: ${ws}`, mcColors.GREEN)
+        const kdText = utils.message.colorText(`K/D: ${kd}`, mcColors.YELLOW)
+        const fkdText = utils.message.colorText(`FK/D: ${fkd}`, mcColors.GOLD)
+        const wlText = utils.message.colorText(`W/L: ${wl}`, mcColors.RED)
+        const bblText = utils.message.colorText(`BB/BL: ${bbl}`, mcColors.LIGHT_PURPLE)
+        return utils.message.colorText(`${bar} ${this.getPlayerText(player)} - ${starText} - ${wsText} - ${kdText} - ${fkdText} - ${wlText} - ${bblText}`, mcColors.WHITE)
+
     },
 
     genWLWSBWS(player: any, w: any, l: any, ws: any, bws: any) {

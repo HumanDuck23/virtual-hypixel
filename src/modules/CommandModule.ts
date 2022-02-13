@@ -1,6 +1,4 @@
 import {Client} from "minecraft-protocol"
-import {configInterface} from "../interfaces/configInterface"
-import {Player} from "../classes/Player"
 import {_ModuleBase} from "./_ModuleBase"
 import {VirtualHypixel} from "../classes/VirtualHypixel"
 import {utils} from "../utils"

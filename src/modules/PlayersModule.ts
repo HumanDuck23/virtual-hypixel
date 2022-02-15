@@ -78,7 +78,7 @@ export class PlayersModule extends _ModuleBase {
                 }
             }
         } else if (meta.name === "respawn" && new Date().getTime() - this.lastRespawn > 500) {
-            this.clientPlayer.currentMode = undefined
+            toServer.write("chat", { message: "/whereami" })
             this.lastRespawn = new Date().getTime()
             this.players = []
             this.clientPlayer.loadMode(this.apiKey)

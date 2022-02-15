@@ -1,5 +1,7 @@
 import {configInterface} from "../interfaces/configInterface"
-import {VirtualHypixel} from "./VirtualHypixel";
+import {VirtualHypixel} from "./VirtualHypixel"
+
+const ChatMessage = require('prismarine-chat')('1.8')
 
 export class PacketFilter {
 
@@ -32,6 +34,21 @@ export class PacketFilter {
                 }
             }
         }*/
+
+        if (meta.name === "chat") {
+            const m = new ChatMessage(JSON.parse(data.message))
+            const serverRE = /You are currently connected to server (.*)/
+            if (serverRE.exec(m.toString())) {
+                if (this.virtual.playerModule) {
+                    const rex = serverRE.exec(m.toString())
+                    if (rex && rex[1].includes("mini"))
+                        this.virtual.playerModule.clientPlayer.currentMode = "GAME"
+                    else
+                        this.virtual.playerModule.clientPlayer.currentMode = "LOBBY"
+                }
+                return [true, null]
+            }
+        }
 
         return [false, data]
     }

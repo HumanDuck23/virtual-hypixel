@@ -8,13 +8,13 @@ import {PlayersModule} from "../modules/PlayersModule"
 import {mcColors} from "../data/mcColors"
 import {utils} from "../utils"
 import fs from "fs"
-import {CommandModule} from "../modules/CommandModule";
-import {StreamModule} from "../modules/StreamModule";
+import {CommandModule} from "../modules/CommandModule"
+import {StreamModule} from "../modules/StreamModule"
 
 
 export class VirtualHypixel {
 
-    version: string = "beta-0.0.1"
+    version: string = "beta-0.0.2"
     config: configInterface
     proxy: InstantConnectProxy
     client: Client | undefined

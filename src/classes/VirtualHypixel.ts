@@ -33,7 +33,7 @@ export class VirtualHypixel {
         this.logger.info(`Virtual Hypixel ${this.version} is starting...`)
         this.config = config
 
-        this.packetFilter = new PacketFilter(this.config.packet, this)
+        this.packetFilter = new PacketFilter(this.config, this)
 
         this.proxy =  new InstantConnectProxy({
             loginHandler: (client) => {

@@ -15,7 +15,7 @@ export class PacketFilter {
 
     handleIncomingPacket(meta: any, data: any): [boolean, any] {
         // World Particles
-        if (meta.name === "world_particles" && !this.config.particles) return [true, null]
+        if (meta.name === "world_particles" && this.config.particles) return [true, null]
 
         // Disabled mods
         if (data.data && data.data.toString().toLowerCase().includes("hypixel") && this.config.enableMods) return [true, null]

@@ -2,6 +2,8 @@ import {_ModuleBase} from "./_ModuleBase"
 import {Client} from "minecraft-protocol"
 import {VirtualHypixel} from "../classes/VirtualHypixel"
 import {configInterface} from "../interfaces/configInterface"
+import {utils} from "../utils"
+import {mcColors} from "../data/mcColors"
 
 const ChatMessage = require('prismarine-chat')('1.8')
 
@@ -33,6 +35,36 @@ export class StreamModule extends _ModuleBase {
                 }, 500)
             }
         }
+    }
+
+    onOutPacket(meta: any, data: any, toServer: Client): boolean {
+        if (meta.name === "chat") {
+            if (data.message.startsWith("/stream ban")) {
+                const args = data.message.split(" ")
+                args.splice(0, 2)
+
+                if (args.length < 1 && this.virtual.client) {
+                    utils.message.sendMessage(this.virtual.client, utils.message.colorText("Invalid usage! /ban <name>", mcColors.RED))
+                } else {
+                    for (let [i, name] of args.entries()) {
+                        setTimeout(() => {
+                            this.ban(name, toServer)
+                        }, 300 * i)
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+
+    ban(name: string, toServer: Client) {
+        setTimeout(() => {
+            toServer.write("chat", { message: `/p kick ${name}` })
+            setTimeout(() => {
+                toServer.write("chat", { message: `/ignore add ${name}` })
+            }, 300)
+        }, 300)
     }
 
     onSpam(name: string) {

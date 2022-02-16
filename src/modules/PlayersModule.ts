@@ -12,7 +12,9 @@ const ChatMessage = require('prismarine-chat')('1.8')
 export class PlayersModule extends _ModuleBase {
 
     players: Player[] = []
-    playersSent: any = {}
+    playersSent: any = {
+        nicks: 0
+    }
     clientPlayer: Player
     apiKey: string
     lastRespawn: number = 0
@@ -81,6 +83,9 @@ export class PlayersModule extends _ModuleBase {
             toServer.write("chat", { message: "/whereami" })
             this.lastRespawn = new Date().getTime()
             this.players = []
+            this.playersSent = {
+                nicks: 0
+            }
             this.clientPlayer.loadMode(this.apiKey)
                 .catch(e => {
                     this.logger.error(`Error loading current gamemode: ${e}`)
@@ -141,9 +146,10 @@ export class PlayersModule extends _ModuleBase {
                     }
                     let alreadySent = 0
                     for (let u of Object.keys(this.playersSent)) {
-                        if (this.playersSent[u]) alreadySent++
+                        if (u !== "nicks" && this.playersSent[u]) alreadySent++
                     }
-                    for (let i = 0; i < parseInt(ex[1]) - 1 - alreadySent - sentToClient; i++) {
+                    for (let i = 0; i < parseInt(ex[1]) - 1 - alreadySent - sentToClient - this.playersSent.nicks; i++) {
+                        this.playersSent.nicks++
                         utils.message.sendMessage(this.client, utils.message.colorText("Nicked player!", mcColors.RED, true))
                     }
                 }, 2000)

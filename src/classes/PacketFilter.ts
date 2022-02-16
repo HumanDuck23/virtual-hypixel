@@ -1,25 +1,26 @@
 import {configInterface} from "../interfaces/configInterface"
 import {VirtualHypixel} from "./VirtualHypixel"
+import {StreamModule} from "../modules/StreamModule";
 
 const ChatMessage = require('prismarine-chat')('1.8')
 
 export class PacketFilter {
 
-    config: configInterface["packet"]
+    config: configInterface
     virtual: VirtualHypixel
 
-    constructor(config: configInterface["packet"], virtual: VirtualHypixel) {
+    constructor(config: configInterface, virtual: VirtualHypixel) {
         this.config = config
         this.virtual = virtual
     }
 
     handleIncomingPacket(meta: any, data: any): [boolean, any] {
         // World Particles
-        if (meta.name === "world_particles" && this.config.particles) return [true, null]
+        if (meta.name === "world_particles" && this.config.packet.particles) return [true, null]
 
         // Disabled mods
-        if (data.data && data.data.toString().toLowerCase().includes("hypixel") && this.config.enableMods) return [true, null]
-        if (data.channel && data.channel === "badlion:mods" && this.config.enableMods) return [true, null]
+        if (data.data && data.data.toString().toLowerCase().includes("hypixel") && this.config.packet.enableMods) return [true, null]
+        if (data.channel && data.channel === "badlion:mods" && this.config.packet.enableMods) return [true, null]
 
         if (meta.name === "scoreboard_team") {
             if (data.team) data.team = data.team.replace("§k", "")
@@ -37,6 +38,7 @@ export class PacketFilter {
 
         if (meta.name === "chat") {
             const m = new ChatMessage(JSON.parse(data.message))
+
             const serverRE = /You are currently connected to server (.*)/
             if (serverRE.exec(m.toString())) {
                 if (this.virtual.playerModule) {
@@ -47,6 +49,14 @@ export class PacketFilter {
                         this.virtual.playerModule.clientPlayer.currentMode = "LOBBY"
                 }
                 return [true, null]
+            }
+
+            if (this.virtual.streamModule?.getMessageSender(m.toString())) {
+                const name = this.virtual.streamModule.getMessageSender(m.toString())
+                // @ts-ignore
+                if (name && this.virtual.streamModule?.messages[name] > this.config.streamMod.spam.limit) {
+                    this.virtual.streamModule?.onSpam(name)
+                }
             }
         }
 

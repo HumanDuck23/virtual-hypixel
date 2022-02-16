@@ -25,9 +25,10 @@ export interface configInterface {
     },
 
     streamMod: {
-        autospam: {
-            limit: number
-            action: string[]
+        spam: {
+            limit: number,
+            warncount: number,
+            actions: string[]
         }
     }
 }

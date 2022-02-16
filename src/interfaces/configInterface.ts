@@ -25,6 +25,7 @@ export interface configInterface {
     },
 
     streamMod: {
+        enabled: boolean,
         spam: {
             limit: number,
             warncount: number,

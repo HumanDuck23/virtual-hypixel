@@ -51,7 +51,7 @@ export class PacketFilter {
                 return [true, null]
             }
 
-            if (this.virtual.streamModule?.getMessageSender(m.toString())) {
+            if (this.config.streamMod.enabled && this.virtual.streamModule?.getMessageSender(m.toString())) {
                 const name = this.virtual.streamModule.getMessageSender(m.toString())
                 // @ts-ignore
                 if (name && this.virtual.streamModule?.messages[name] > this.config.streamMod.spam.limit) {

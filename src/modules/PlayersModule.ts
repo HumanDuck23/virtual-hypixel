@@ -139,7 +139,15 @@ export class PlayersModule extends _ModuleBase {
                                         utils.message.sendMessage(this.client, statsObject.getPlayerText(player.playerObj))
                                     }
                                 } else {
-                                    this.logger.error(`Stats of ${player.name} are undefined.`)
+                                    this.logger.error(`Stats of ${player.name} are undefined, attempting reload...`)
+                                    this.playersSent[player.uuid] = false
+                                    player.loadStats(this.config.account.hypixelApiKey)
+                                        .then(() => {
+                                            this.logger.info("Stats reloaded.")
+                                        })
+                                        .catch((e) => {
+                                            this.logger.error(`Still unable to load stats. Error: ${e}`)
+                                        })
                                 }
                             }
                         }

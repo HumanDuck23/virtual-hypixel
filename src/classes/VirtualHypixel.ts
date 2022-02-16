@@ -14,7 +14,7 @@ import {StreamModule} from "../modules/StreamModule"
 
 export class VirtualHypixel {
 
-    version: string = "beta-0.0.2"
+    version: string = "beta-0.0.3"
     config: configInterface
     proxy: InstantConnectProxy
     client: Client | undefined

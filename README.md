@@ -46,13 +46,13 @@ to `private_config.json`. Here are the most important fields:
 | `shouldDodge` | `true` or `false`, enables / disables autododge      |
 | `dodge`       | JSON object of dodging rules, see below for examples |
 
-### Streammod
+### StreamMod
 ###### Settings for the stream moderation module
 
-| Name      | Value                                           |
-|-----------|-------------------------------------------------|
-| `enabled` | `true` or `false`, enables / disabled streamMod |
-| `spam`    | JSON object of rules, see below                 |
+| Name      | Value                                             |
+|-----------|---------------------------------------------------|
+| `enabled` | `true` or `false`, enables / disabled streamMod   |
+| `spam`    | JSON object of rules to deal with spam, see below |
 
 ## JSON Object examples
 
@@ -68,6 +68,18 @@ to `private_config.json`. Here are the most important fields:
         "wlr": 4
       }
     }
+  }
+}
+```
+
+### StreamMod
+```json
+{
+  "enabled": true,
+  "spam": {
+    "limit": 5,
+    "warncount": 3,
+    "actions": []
   }
 }
 ```

@@ -76,7 +76,7 @@ export class StreamModule extends _ModuleBase {
                 // max warnings
                 for (let [i, command] of this.config.streamMod.spam.actions.entries()) {
                     setTimeout(() => {
-                        this.toServer?.write("chat", { message: command })
+                        this.toServer?.write("chat", { message: command + name })
                     }, 400 * (i+1))
                 }
             }

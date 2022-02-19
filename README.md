@@ -72,18 +72,6 @@ to `private_config.json`. Here are the most important fields:
 }
 ```
 
-### StreamMod
-```json
-{
-  "enabled": true,
-  "spam": {
-    "limit": 5,
-    "warncount": 3,
-    "actions": []
-  }
-}
-```
-
 This would make the program dodge anyone in sumo duels that has:
 - 1000 wins
 - A 50 winstreak
@@ -95,6 +83,24 @@ They're a simple object with the key being the mode, such as `DUELS_SUMO_DUEL`
 or `DUELS_CLASSIC_DUEL`, and the value being key-value set of criteria. 
 Alternatively to the mode, you can write `ALL` as the key, and the rules will 
 apply for all modes. Modes can be found in [statsObject.ts](https://github.com/HumanDuck23/virtual-hypixel/blob/master/src/data/statsObject.ts).
+
+### StreamMod
+```json
+{
+  "enabled": true,
+  "spam": {
+    "limit": 5,
+    "warncount": 3,
+    "actions": ["/p kick "]
+  }
+}
+```
+
+| Name        | Value                                                                                  |
+|-------------|----------------------------------------------------------------------------------------|
+| `limit`     | After how many messages it is considered spam. Message count reduced by one every 0.5s |
+| `warncount` | How many warnings will be sent                                                         |
+| `actions`   | List of commands to run after the warnings                                             |
 
 ---
  

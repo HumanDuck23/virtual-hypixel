@@ -1,0 +1,24 @@
+{
+  "account": {
+    "email": "--EMAIL--",
+    "password": "--PASSWORD--",
+    "auth": "mojang or microsoft",
+
+    "hypixelApiKey": "--Hypixel Api Key--"
+  },
+  "packet": {
+    "enableMods": true,
+    "particles": true,
+    "rockets": true
+  },
+
+  "autododge": {
+    "shouldDodge": false,
+    "dodge": {}
+  },
+
+  "streamMod": {
+    "enabled": false,
+    "spam": {}
+  }
+}
